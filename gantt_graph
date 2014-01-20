@@ -1,0 +1,101 @@
+<?php
+	$tijd = $_POST['tijd'];
+	$horizontaal = $_POST['horizontaal'];
+    $verticaalbegin = $_POST['verticaalbegin'];
+    $horizontaaleind = $_POST['horizontaaleind'];
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gantt-diagram</title>
+</head>
+
+<body>
+<p>Vul hieronder de gegevens in</p>
+<form method="POST" action="http://localhost/crm/index.php">
+	Tijd : <input type="text" style="width:60px; padding-left:3px;" name="tijd" placeholder="Tijd" value="10" /><br /><br />
+    Verticaal getal : <input type="text" style="width:100px; padding-left:3px;" name="verticaalbegin" placeholder="Verticaalbegin" /><br />
+    Horizontaal begin : <input type="text" style="width:100px; padding-left:3px;" name="horizontaal" placeholder="Horizontaal" /><br />
+    Horizontaal niet voorbij : <input type="text" style="width:100px; padding-left:3px;" name="horizontaaleind" placeholder="horizontaaleind" /><br /><br />    
+
+    Hieronder de fases. Voor morgen wil ik een button maken die een rij toevoegd dat hoort ook bij de CRM e<br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Kick-off" /><br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Navigation & wireframes" /><br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Design concept" /><br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Visual design" /><br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="HTML templates" /><br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="CMS configuration" /><br />
+    <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Delivery" /><br /><br />
+    
+    
+    <input type="submit" value="Verzenden" />
+</form>
+<br />
+<table border="4" cellpadding="1" rules="cols">
+<?php
+
+$fases = $_POST['fases'];
+$fase = count($fases);
+
+$a = 0;
+while($a < $fase)
+	{
+		echo "<tr>";
+			echo "<td>";
+				echo "$a $fases[$a]";
+			echo "</td>";
+
+		$c = 1;
+		while($c <= $tijd)
+		{
+			echo "<td ";
+			$d = $c;
+			if ($a == $verticaalbegin)
+			{
+				if ($c >= $horizontaal)
+				{		
+					if ($d >= $horizontaaleind)
+					{
+						echo "style='background-color:red'>";
+					}else
+					{
+						echo "style='background-color:blue;'";
+					}
+				}else
+				{
+					echo "style='background-color:red'>";
+				}
+			}else
+			{
+				echo "style='background-color:red'>";
+			}
+			echo "</td>";
+		$c++;
+		}
+		echo "</tr>";
+
+
+		if ($a == $fase-1)
+		{
+			echo "<td>";
+			echo "</td>";
+		}		
+		$b = 1;
+		while($b <= $tijd)
+		{
+			if ($a == $fase-1)
+			{
+				echo "<td>";
+					echo "Tijd $b";
+				echo "</td>";
+			}
+		$b++;
+		}
+	$a++;
+	}
+?>
+</table>
+</body>
+</html>
