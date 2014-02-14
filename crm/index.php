@@ -115,7 +115,7 @@ $d = 0;
 $e = 0; //dit is voor de checkboxes//
 while($d <= $tekst)
 {
-	echo '<input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Kick-off" /> Horizontaal begin : <input type="text" style="width:100px; padding-left:3px;" name="horizontaal[]" placeholder="Horizontaal" value="0" /> Klaar begin week : <input type="text" style="width:100px; padding-left:3px;" name="horizontaaleind[]" placeholder="horizontaaleind" value="10" /> Titel? <input type="checkbox" name="titel['.$e.']" value="titel"><br />';
+	echo '<input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Onderdeel" /> Horizontaal begin : <input type="text" style="width:100px; padding-left:3px;" name="horizontaal[]" placeholder="Horizontaal" value="0" /> Klaar begin week : <input type="text" style="width:100px; padding-left:3px;" name="horizontaaleind[]" placeholder="horizontaaleind" value="10" /> Titel? <input type="checkbox" name="titel['.$e.']" value="titel"><br />';
 $d++;
 $e++;
 }
