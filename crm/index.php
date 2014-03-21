@@ -133,8 +133,8 @@ td
 	while($d <= $tekst)
 	{
 		echo '<input type="text" class="inputonderdeel" name="fases[]" placeholder="Onderdeel?" value="Onderdeel" /> 
-				Horizontaal begin : <input type="text" class="inputonderdeel" name="horizontaal[]" placeholder="Horizontaal begin?" value="0" /> 
-				Klaar begin week : <input type="text" class="inputonderdeel" name="horizontaaleind[]" placeholder="Klaar begin week?" value="10" /> 
+				Start : <input type="text" class="inputonderdeel" name="horizontaal[]" placeholder="Start?" value="0" /> 
+				Klaar voor week : <input type="text" class="inputonderdeel" name="horizontaaleind[]" placeholder="Klaar voor week?" value="10" /> 
 				Titel? <input type="checkbox" name="titel['.$e.']" value="titel"><br />';
 	$d++;
 	$e++;
