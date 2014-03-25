@@ -102,7 +102,6 @@ td
     Horizontaal niet voorbij : <input type="text" style="width:100px; padding-left:3px;" name="horizontaaleind" placeholder="horizontaaleind" /><br /><br />    
 -->
 
-
 	<?php
 	//TEKSTBALK TOEVOEGEN EN VERWIJDEREN//
 	if(!isset($_GET['toevoegen']))
@@ -152,89 +151,106 @@ td
     <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Visual design" /> Horizontaal begin : <input type="text" style="width:100px; padding-left:3px;" name="horizontaal[]" placeholder="Horizontaal" value="6" /> Horizontaal niet voorbij : <input type="text" style="width:100px; padding-left:3px;" name="horizontaaleind[]" placeholder="horizontaaleind" value="10" /><br />
     <input type="text" style="width:200px; padding-left:3px;" name="fases[]" value="Delivery" /> Horizontaal begin : <input type="text" style="width:100px; padding-left:3px;" name="horizontaal[]" placeholder="Horizontaal" value="10" /> Horizontaal niet voorbij : <input type="text" style="width:100px; padding-left:3px;" name="horizontaaleind[]" placeholder="horizontaaleind" value="11" /><br /><br />
 -->
-
     <input type="submit" value="Verzenden" />
 </form>
 <br />
-<div id="grantt_table">
-    <table rules="cols">
-    <?php
-    
-    $a = 0;
-    while($a < $fase)
-    {
-        echo "<tr>";
-            echo "<td class='tablelinks' width='auto'>";
-                echo "$fases[$a]";
-            echo "</td>";
-    
-            $c = 0;
-            while($c <= $tijd)
-            {
-                echo "<td ";
-                $d = $c;
-            //	var_dump($_POST['horizontaal'][$a]);
-                if ($c >= $horizontaal[$a])
+
+
+<?php
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+	if(!count($fases) == '0')
+	{
+?>
+    <div id="grantt_table">
+        <table rules="cols">
+        <?php
+        
+        $a = 0;
+        while($a < $fase)
+        {
+            echo "<tr>";
+                echo "<td class='tablelinks' width='auto'>";
+                    echo "$fases[$a]";
+                echo "</td>";
+        
+                $c = 0;
+                while($c <= $tijd)
                 {
-                    if ($d >= $horizontaaleind[$a])
+                    echo "<td ";
+                    $d = $c;
+                //	var_dump($_POST['horizontaal'][$a]);
+                    if ($c >= $horizontaal[$a])
                     {
-                        echo "class='vakjein1'>";
-                    }
-                    elseif (!empty($titels[$a]) && $d >= $titels[$a])
-                    {
-                        echo "class='vakjein2'>";
+                        if ($d >= $horizontaaleind[$a])
+                        {
+                            echo "class='vakjein1'>";
+                        }
+                        elseif (!empty($titels[$a]) && $d >= $titels[$a])
+                        {
+                            echo "class='vakjein2'>";
+                        }
+                        else
+                        {
+                            echo "class='vakjein3'>";
+                        }
                     }
                     else
                     {
-                        echo "class='vakjein3'>";
+                        echo "class='vakjein1'>";
                     }
+                    echo "</td>";
+                $c++;
                 }
-                else
-                {
-                    echo "class='vakjein1'>";
-                }
-                echo "</td>";
-            $c++;
+            echo "</tr>";
+            
+            echo "<tr style='background-color: transparent;'>";
+            $f = 0;
+            while($f <= $tijd)
+            {
+                echo "<td style='padding-top:0px; padding-bottom:0px; font-size:8px;'>&nbsp;</td>";
+                $f++;
             }
-        echo "</tr>";
-		
-		echo "<tr style='background-color: transparent;'>";
-		$f = 0;
-		while($f <= $tijd)
-		{
-			echo "<td style='padding-top:0px; padding-bottom:0px; font-size:8px;'>&nbsp;</td>";
-            $f++;
-		}
-		echo "</tr>";
-		
-        if ($a == $fase-1)
-        {
-            echo "<td>";
-            echo "</td>";
-        }
-        $b = 0;
-        while($b <= $tijd)
-        {
+            echo "</tr>";
+            
             if ($a == $fase-1)
             {
                 echo "<td>";
-                    echo "$b";
                 echo "</td>";
             }
-        $b++;
-        }
-    $a++;
-    }	
-    ?>
-    </table>
-    <p><?php echo "$periode" ?></p>
-</div>
+            $b = 0;
+            while($b <= $tijd)
+            {
+                if ($a == $fase-1)
+                {
+                    echo "<td>";
+                        echo "$b";
+                    echo "</td>";
+                }
+            $b++;
+            }
+        $a++;
+        }	
+        ?>
+        </table>
+        <p><?php echo "$periode" ?></p>
+    </div>
+<?php
+	}else
+	echo '<strong><font size="+2">Geen onderdelen ingevult, dus geen tabel</font></strong>';
+}
+?>
+
 <div style="float:right">
     <pre>
 		<?php
-			print_r ($titels);
+			if($_SERVER['REQUEST_METHOD'] == 'POST')
+			{
+				print_r ($_POST);
+			}
         ?>
     </pre>
 </div>
+
 </body>
 </html>
